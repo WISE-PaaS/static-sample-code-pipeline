@@ -44,6 +44,10 @@ node('gradle'){
 				//sh "gradle build"
 				//sh "gradle fatJar"
 				//sh "gradle makeManifest"
+
+        // 由於略過編譯  故自行複製到一個 dist folder
+        sh "mkdir dist"
+        sh "cp ./* ./dist"
 			}
 		}
 		
@@ -55,11 +59,6 @@ node('gradle'){
           // dist 是編譯時產生的資料夾 
 					// sh "cp ../dist/* ./"
 					// sh "cp ../manifest.yml ./"
-          
-          // 查看目錄有什麼
-          sh "cd .."
-          sh "ls"
-          sh "cd test"   // Fail on purpose
           
           sh "cp ../* ./"
 
