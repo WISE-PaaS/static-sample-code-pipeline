@@ -51,8 +51,11 @@ node('gradle'){
 			dir("${app_package_name}"){
 				dir("${app_package_name}_${packageVersion}"){
 					//拷贝需要打包的文件
-					sh "cp ../dist/* ./"
-					sh "cp ../manifest.yml ./"
+          // dist 是編譯時產生的資料夾 
+					// sh "cp ../dist/* ./"
+					// sh "cp ../manifest.yml ./"
+          sh "cp ../* ./"
+          
 					//将需要打包的文件打包成zip包
 					sh "zip -r ${zipName} ./*"
 					retry(2){
