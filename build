@@ -45,30 +45,42 @@ node('gradle'){
 				//sh "gradle fatJar"
 				//sh "gradle makeManifest"
 
-        // 由於略過編譯  故自行複製到一個 dist folder
-        sh "mkdir dist"
-        sh "cp ./* ./dist"
 			}
 		}
 		
-		stage("Archive") {
-			zipName="${app_package_name}_${packageVersion}.zip"
-			dir("${app_package_name}"){
-				dir("${app_package_name}_${packageVersion}"){
-					//拷贝需要打包的文件
-          // dist 是編譯時產生的資料夾 
-					// sh "cp ../dist/* ./"
-					// sh "cp ../manifest.yml ./"
-          
-          sh "cp ../* ./"
+    // ============================ 有生成 dist ==================================================
+		// stage("Archive") {
+		// 	zipName="${app_package_name}_${packageVersion}.zip"
+		// 	dir("${app_package_name}"){
+		// 		dir("${app_package_name}_${packageVersion}"){
+		// 			//拷贝需要打包的文件
+    //       // dist 是編譯時產生的資料夾 
+		// 			sh "cp ../dist/* ./"
+		// 			sh "cp ../manifest.yml ./"
 
-					//将需要打包的文件打包成zip包
-					sh "zip -r ${zipName} ./*"
-					retry(2){
-						//上传zip包到blob，blobUploadDownload.py脚本有4个参数，（1）upload代表要上传（2）bob container的名字（3）文件上传到blob后的名字（4）需要上传的文件
-						sh "python3 ../../Blob/blobUploadDownload.py upload ${blob_container} ${zipName}  ./${zipName}"
-					}
-				}
+		// 			//将需要打包的文件打包成zip包
+		// 			sh "zip -r ${zipName} ./*"
+		// 			retry(2){
+		// 				//上传zip包到blob，blobUploadDownload.py脚本有4个参数，（1）upload代表要上传（2）bob container的名字（3）文件上传到blob后的名字（4）需要上传的文件
+		// 				sh "python3 ../../Blob/blobUploadDownload.py upload ${blob_container} ${zipName}  ./${zipName}"
+		// 			}
+		// 		}
+		// 	}	
+		// }
+
+    // ============================ 無生成 dist ==================================================
+    stage("Archive") {
+			zipName="${app_package_name}_${packageVersion}.zip"
+      
+			dir("${app_package_name}"){
+
+        //将需要打包的文件打包成zip包
+        sh "zip -r ${zipName} ./*"
+
+        retry(2){
+          //上传zip包到blob，blobUploadDownload.py脚本有4个参数，（1）upload代表要上传（2）bob container的名字（3）文件上传到blob后的名字（4）需要上传的文件
+          sh "python3 ../../Blob/blobUploadDownload.py upload ${blob_container} ${zipName}  ./${zipName}"
+        }
 			}	
 		}
 	}
