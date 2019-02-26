@@ -5,10 +5,10 @@
 
 node('gradle'){
 	def result = "SUCCESS"   //result变量用来存储pipeline执行的结果，初始化为SUCCESS
-	def app_package_name="StaticSampleCode"   //上传到blob的package名称的前缀，例如package的名称为javasamplecode_1.0.0.zip，其前缀为javasamplecode
-	def blob_container="sedev"   //package所在的blob的container的名字
-	def sourceCodeGitUrl="http://advgitlab.eastasia.cloudapp.azure.com/SE-Dev/Static-Sample-Code.git"   //SourceCode的git地址
-	try{                  
+	def app_package_name="javasamplecode"   //上传到blob的package名称的前缀，例如package的名称为javasamplecode_1.0.0.zip，其前缀为javasamplecode
+	def blob_container="public"   //package所在的blob的container的名字
+	def sourceCodeGitUrl="http://advgitlab.eastasia.cloudapp.azure.com/WISE-PaaS_CodePipeline/JavaSampleCode.git"   //SourceCode的git地址
+	try{
 		//做一些准备工作
 		stage('Prepare'){ 
 			//清除上一次pipeline执行记录
@@ -17,10 +17,10 @@ node('gradle'){
 			//下载从blob上传或者下载package的脚本
 			dir("Blob"){
 				retry(2){
-					git credentialsId: "${git_credential}", url: 'http://advgitlab.eastasia.cloudapp.azure.com/WISE-PaaS_CodePipeline/blobUploadDownload.git'
+					git credentialsId: "${git_credential}", url: 'http://advgitlab.eastasia.cloudapp.azure.com/EI-PaaS_DevOps_Pipeline/blobUploadDownload.git'
 				}
 			}	
-		}         
+		}
 		
 		stage("Build") {
 			dir("${app_package_name}"){
