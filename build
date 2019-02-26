@@ -24,6 +24,7 @@ node('gradle'){
 		
 		stage("Build") {
 			dir("${app_package_name}"){
+        
 				//下载SourceCode
 				retry(2){
 					git credentialsId: "${git_credential}", url: "${sourceCodeGitUrl}"  
@@ -31,6 +32,7 @@ node('gradle'){
 				
 				//如果TagName为空，获取最新的tag的名字
         print '\n\n\nTagName: ' + TagName + '\n\n\n'
+
 				if(TagName==""){
 				    sh 'git describe --tags `git rev-list --tags --max-count=1`>newestTag.txt'  
 				    TagName=readFile("newestTag.txt")
@@ -71,7 +73,7 @@ node('gradle'){
     // ============================ 無生成 dist ==================================================
     stage("Archive") {
 			zipName="${app_package_name}_${packageVersion}.zip"
-      
+
 			dir("${app_package_name}"){
 
         //将需要打包的文件打包成zip包
