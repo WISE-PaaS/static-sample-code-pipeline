@@ -24,7 +24,7 @@ node('gradle'){
 		
 		stage("Build") {
 			dir("${app_package_name}"){
-        
+
 				//下载SourceCode
 				retry(2){
 					git credentialsId: "${git_credential}", url: "${sourceCodeGitUrl}"  
@@ -81,7 +81,7 @@ node('gradle'){
 
         retry(2){
           //上传zip包到blob，blobUploadDownload.py脚本有4个参数，（1）upload代表要上传（2）bob container的名字（3）文件上传到blob后的名字（4）需要上传的文件
-          sh "python3 ../../Blob/blobUploadDownload.py upload ${blob_container} ${zipName}  ./${zipName}"
+          sh "python3 ../Blob/blobUploadDownload.py upload ${blob_container} ${zipName}  ./${zipName}"
         }
 			}	
 		}
