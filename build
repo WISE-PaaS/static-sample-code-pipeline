@@ -7,7 +7,8 @@ node('gradle'){
 	def result = "SUCCESS"   //result变量用来存储pipeline执行的结果，初始化为SUCCESS
 	def app_package_name="StaticSampleCode"   //上传到blob的package名称的前缀，例如package的名称为javasamplecode_1.0.0.zip，其前缀为javasamplecode
 	def blob_container="sedev"   //package所在的blob的container的名字
-  def blob_container_key="WSsGUdfUpGlFJdNASGWn3qSogHRRty49IfS8JJ4M69l5axPvP4hwh/RUJrsFZPwrgph9enmS+wgxTZxf7lWdR78kUqeLkKIusxr9K0sfgsa5ASW58bO37gHLqv1p+8bQEOUYLFRTKXBYc9cqPh1JZKvw5l2lZxM1a3zaBbR7/hI="
+  // def blob_container_key="WSsGUdfUpGlFJdNASGWn3qSogHRRty49IfS8JJ4M69l5axPvP4hwh/RUJrsFZPwrgph9enmS+wgxTZxf7lWdR78kUqeLkKIusxr9K0sfgsa5ASW58bO37gHLqv1p+8bQEOUYLFRTKXBYc9cqPh1JZKvw5l2lZxM1a3zaBbR7/hI="
+  def blob_container_key="https://wisepaasdevelop.blob.core.windows.net/sedev?sv=2018-03-28&si=sedev-1692407A200&sr=c&sig=NdaY8Lt5wMy3DH5fDZnMZ72BPsyBlunculq9AR%2BFILA%3D"
 	def sourceCodeGitUrl="http://advgitlab.eastasia.cloudapp.azure.com/SE-Dev/Static-Sample-Code.git"   //SourceCode的git地址
 	try{                  
 		//做一些准备工作
