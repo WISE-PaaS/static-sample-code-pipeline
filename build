@@ -54,8 +54,14 @@ node('gradle'){
           // dist 是編譯時產生的資料夾 
 					// sh "cp ../dist/* ./"
 					// sh "cp ../manifest.yml ./"
-          sh "cp ../* ./"
           
+          // 查看目錄有什麼
+          sh "cd .."
+          sh "ls"
+          sh "cd test"   // Fail on purpose
+          
+          sh "cp ../* ./"
+
 					//将需要打包的文件打包成zip包
 					sh "zip -r ${zipName} ./*"
 					retry(2){
