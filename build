@@ -30,6 +30,7 @@ node('gradle'){
 				}
 				
 				//如果TagName为空，获取最新的tag的名字
+        print '\n\n\nTagName: ' + TagName + '\n\n\n'
 				if(TagName==""){
 				    sh 'git describe --tags `git rev-list --tags --max-count=1`>newestTag.txt'  
 				    TagName=readFile("newestTag.txt")
