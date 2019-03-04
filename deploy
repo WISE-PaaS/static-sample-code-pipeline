@@ -88,7 +88,7 @@ node('deploy'){    //pipeline运行的节点，srp的部署都是在docker上面
           
           // Inspection
           readContent = readFile("zipName.txt")
-          print readContent
+          print '\n\nreadContent: ' + readContent + '\n\n'
 
 					zipName = readContent.tokenize('/')[1].tokenize()[0]
 					zipVersion = zipName.tokenize('_')[1]
@@ -114,8 +114,8 @@ node('deploy'){    //pipeline运行的节点，srp的部署都是在docker上面
 				app_version = app_name.tokenize('-')[-1].tokenize()[0]
 
 				// Inspection
-				print('app_version:', app_version)
-				print('DeployVersion:', DeployVersion)
+				print '\n\napp_version: ' +  app_version + '\n\n'
+				print '\n\nDeployVersion: ' + DeployVersion + '\n\n'
 
 				// 檢查 name 所指定的版本號與 DeployVersion 是否相同
 				if (DeployVersion != app_version) {
