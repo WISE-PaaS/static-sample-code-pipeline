@@ -105,6 +105,7 @@ node('deploy'){    //pipeline运行的节点，srp的部署都是在docker上面
 				//解压zip包
 				sh "unzip -o -d ./ ${zipName}"
 				//复制 manifest 並修改 manifest 名稱
+				sh "cat manifest.yml"
 				sh "cp manifest.yml manifest-${lowOrgName}-${lowSpaceName}.yml"
 				
 				// 读取app的名字 (name field in the manifest)
